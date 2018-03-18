@@ -13,7 +13,6 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
     return $this->renderer->render($response, 'index.phtml', $args);
 });
 
-
 // Routes
 // Grupo de rutas para el API
 $app->group('/api', function () use ($app) {

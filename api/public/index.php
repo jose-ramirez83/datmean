@@ -33,7 +33,12 @@ function getData($response) {
         $employees = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;*/
         
-        return json_encode(Array("error"=>0,"msg"=>"Correcto"));
+        $result = new stdClass();
+        
+        $result->error=0;
+        $result->msg="Datos correctos";
+        
+        return json_encode($result);
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
