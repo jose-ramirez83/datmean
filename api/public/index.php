@@ -26,9 +26,5 @@ require __DIR__ . '/../src/middleware.php';
 // Register routes
 require __DIR__ . '/../src/routes.php';
 
-// Funcionalidades api
-require __DIR__ . '/../src/api.php';
-
-
 // Run app
 $app->run();
