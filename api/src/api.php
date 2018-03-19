@@ -2,11 +2,9 @@
 
 function getAuthorization($request,$response)
 {
-    $user = json_decode($request->getBody());
-    print_r($user);die();
+    $user = $request->getParsedBody();
     
-    $password = base64_encode(md5($user->pass));
-    echo $password;die();
+    $password = base64_encode(md5($user['pass']));
     
     if ($password=="N2FkNTY4YzQ4MWY1ZDA2OTc0MWZjYjllYmY4MDUwMDc="){
         
@@ -14,15 +12,15 @@ function getAuthorization($request,$response)
         try {
             $db = getConnection();
             $stmt = $db->prepare($sql);
-            $stmt->bindParam("user", $user->name);
+            $stmt->bindParam("user", $user['name']);
             $stmt->execute();
-            $user->id = $db->lastInsertId();
-            $user->error = 0;
+            $user['id'] = $db->lastInsertId();
+            $user['error'] = 0;
             $cookie_name = 'userName';
-            $cookie_value = $user->id;
+            $cookie_value = $user['id'];
             
             // Preparamos una cookie durante 15 minutos
-            setcookie($cookie_name, $cookie_value, time() + (60 * 5), "/"); // 60 segundos (1 minuto) por 15
+            setcookie($cookie_name, $cookie_value, time() + (60 * 15), "/"); // 60 segundos (1 minuto) por 15
             $db = null;
             echo json_encode($user);
         } catch(PDOException $e) {
@@ -37,24 +35,17 @@ function getAuthorization($request,$response)
 
 function accesPlataform($request)
 {
-    $user = json_decode($request->getBody());
+    $user = $request->getParsedBody();
     
-    if ($user->pass==token){
-        $cookie_name = 'userName';
-        $cookie_value = $user->name;
-        
-        // Preparamos una cookie durante 15 minutos
-        setcookie($cookie_name, $cookie_value, time() + (60 * 15), "/"); // 60 segundos (1 minuto) por 15
-    }
+    $sql = "SELECT COUNT(*) FROM token WHERE id=:id";
     
-    $sql = "INSERT INTO token (user) VALUES (:user)";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
-        $stmt->bindParam("user", $user->name);
+        $stmt->bindParam("id", $user['userName']);
         $stmt->execute();
-        $user->id = $db->lastInsertId();
-        $user->error = 0;
+        $user['id'] = $db->lastInsertId();
+        $user['error'] = 0;
         $db = null;
         echo json_encode($user);
     } catch(PDOException $e) {
