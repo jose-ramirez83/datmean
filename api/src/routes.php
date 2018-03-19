@@ -12,3 +12,20 @@ $app->get('/[{name}]', function (Request $request, Response $response, array $ar
     // Render index view
     return $this->renderer->render($response, 'index.phtml', $args);
 });
+
+// Routes
+// Grupo de rutas para el API
+$app->group('/api', function () use ($app) {
+    // Version group
+    $app->group('/v1', function () use ($app) {
+        $app->get('/typeShips', 'getTypeShip');
+        $app->get('/ships', 'getShips');
+        $app->post('/add', 'registerSpaceship');
+        $app->post('/access', 'accesPlataform');
+        $app->post('/platform', 'getAuthorization');
+        /*$app->get('/empleado/{id}', 'obtenerEmpleado');
+        $app->post('/crear', 'agregarEmpleado');
+        $app->put('/actualizar/{id}', 'actualizarEmpleado');
+        $app->delete('/eliminar/{id}', 'eliminarEmpleado');*/
+    });
+});
