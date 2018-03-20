@@ -21,13 +21,14 @@ function getAuthorization($request,$response)
         
         $sql = "INSERT INTO token (user,token,fc_acceso) VALUES (:user,:token,:time)";
         try {
+            $time= date('Y-m-d H:i:s');
             $db = getConnection();
             $stmt = $db->prepare($sql);
             $cookie_name = 'userName';
             $cookie_value = base64_encode(md5($user['name']));
             $stmt->bindParam("user", $user['name']);
             $stmt->bindParam("token", $cookie_value);
-            $stmt->bindParam("time", date('Y-m-d H:i:s'));
+            $stmt->bindParam("time", $time);
             $stmt->execute();
             $user['id'] = $db->lastInsertId();
             $user['error'] = 0;

@@ -2,7 +2,7 @@ $(function()
 {
 	$('#submit').click(function(){
 		$.ajax({
-		    url: "http://localhost/api2/api/public/api/v1/platform",
+		    url: "http://localhost/datmean/api/public/api/v1/platform",
 		    type: 'POST',
 		    dataType: 'JSON',
 		    data: {name: jQuery('input[name=name]').val(),pass:jQuery('input[name=pass]').val()},

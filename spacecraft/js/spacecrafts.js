@@ -49,7 +49,7 @@ $(function()
 		}
 		else{
 			$.ajax({
-			    url: "http://localhost/api2/api/public/api/v1/add",
+			    url: "http://localhost/datmean/api/public/api/v1/add",
 			    type: 'POST',
 			    dataType: 'JSON',
 			    data: {name: name, type:type, x:x, y:y, z:z},
@@ -82,7 +82,7 @@ $(function()
 		}
 		else{
 			$.ajax({
-			    url: "http://localhost/api2/api/public/api/v1/ship/"+$('input[name=search]').val(),
+			    url: "http://localhost/datmean/api/public/api/v1/ship/"+$('input[name=search]').val(),
 			    type: 'GET',
 			    dataType: 'JSON',
 			    success: function(result) {
