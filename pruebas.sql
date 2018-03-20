@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generaci贸n: 20-03-2018 a las 15:16:53
--- Versi贸n del servidor: 10.1.16-MariaDB
--- Versi贸n de PHP: 5.6.24
+-- Tiempo de generaci髇: 20-03-2018 a las 16:23:48
+-- Versi髇 del servidor: 10.1.16-MariaDB
+-- Versi髇 de PHP: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -40,10 +40,8 @@ CREATE TABLE `spaceship` (
 --
 
 INSERT INTO `spaceship` (`id`, `name`, `id_type`, `x`, `y`, `z`) VALUES
-(1, 'Nave 1', 2, 123, 234, 456),
-(2, 'Caza de Darth Vader', 4, 123, 123, 123),
-(3, 'efasfeaef', 4, 123, 213432, 234),
-(4, 'Halc贸n Milenario', 10, 555, 666, 777);
+(10, 'Halc髇 milenario', 10, -532, 234, 432),
+(11, 'X-Wing Luke', 9, 34, 23, 1);
 
 -- --------------------------------------------------------
 
@@ -78,7 +76,11 @@ INSERT INTO `token` (`id`, `user`) VALUES
 (15, 'prueba'),
 (16, 'pedro'),
 (17, 'pep'),
-(18, 'pepe');
+(18, 'pepe'),
+(19, 'soldado'),
+(20, 'prueba'),
+(21, 'pedro'),
+(22, 'pepe');
 
 -- --------------------------------------------------------
 
@@ -106,10 +108,10 @@ INSERT INTO `type` (`id`, `type`, `ds_type`) VALUES
 (7, 7, 'Aerodeslizador T-47'),
 (8, 8, 'TIE/LN'),
 (9, 9, 'T-65 Ala-X (X-Wing)'),
-(10, 10, 'Halc贸n Milenario');
+(10, 10, 'Halc髇 Milenario');
 
 --
--- 脥ndices para tablas volcadas
+-- 蚽dices para tablas volcadas
 --
 
 --
@@ -139,17 +141,27 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT de la tabla `spaceship`
 --
 ALTER TABLE `spaceship`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT de la tabla `token`
 --
 ALTER TABLE `token`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT de la tabla `type`
 --
 ALTER TABLE `type`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `spaceship`
+--
+ALTER TABLE `spaceship`
+  ADD CONSTRAINT `id_type` FOREIGN KEY (`id_type`) REFERENCES `type` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
