@@ -8,9 +8,11 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <title>PROTOCOLO DE EMEGENCIA REBELDE 2.1.3</title>
 </head>
 
@@ -33,30 +35,35 @@
     </form>
   </div>
 </nav>
-  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Tipo</th>
-      <th scope="col">Coordenada x</th>
-      <th scope="col">Coordenada y</th>
-      <th scope="col">Coordenada z</th>
-    </tr>
-  </thead>
-  <tbody>
-  	{% for nave in naves %}
-    <tr>
-      <th scope="row">{{ loop.index }}</th>
-      <td>{{ nave.name }}</td>
-      <td>{{ nave.ds_type }}</td>
-      <td>{{ nave.x }}</td>
-      <td>{{ nave.y }}</td>
-      <td>{{ nave.z }}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<br>
+		<div class="card" style="width:90%;left:5%;">
+			<div class="card-body">
+			  <table class="table">
+				  <thead>
+				    <tr>
+				      <th scope="col">#</th>
+				      <th scope="col">Nombre</th>
+				      <th scope="col">Tipo</th>
+				      <th scope="col">Coordenada x</th>
+				      <th scope="col">Coordenada y</th>
+				      <th scope="col">Coordenada z</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{% for nave in naves %}
+				    <tr>
+				      <th scope="row">{{ loop.index }}</th>
+				      <td>{{ nave.name }}</td>
+				      <td>{{ nave.ds_type }}</td>
+				      <td>{{ nave.x }}</td>
+				      <td>{{ nave.y }}</td>
+				      <td>{{ nave.z }}</td>
+				    </tr>
+				    {% endfor %}
+				  </tbody>
+				</table>
+			</div>
+</div>
 
 <div class="modal" tabindex="-1" role="dialog" id="modalRegister">
   <div class="modal-dialog" role="document">

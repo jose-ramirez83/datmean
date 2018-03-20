@@ -1,5 +1,34 @@
 $(function() 
 {
+	
+	$('.table').DataTable(
+	{
+	    language:{
+			"sProcessing":     "Procesando...",
+			"sLengthMenu":     "Mostrar _MENU_ naves",
+			"sZeroRecords":    "No se encontraron resultados",
+			"sEmptyTable":     "No hay naves espaciales registradas.",
+			"sInfo":           "Mostrando del _START_ al _END_ de un total de _TOTAL_ naves espaciales",
+			"sInfoEmpty":      "Mostrando registos del 0 al 0 de un total de 0 naves espaciales",
+			"sInfoFiltered":   "(filtrado de un total de _MAX_ Naves espaciales)",
+			"sInfoPostFix":    "",
+			"sSearch":         "Filtrar:",
+			"sUrl":            "",
+			"sInfoThousands":  ",",
+			"sLoadingRecords": "Cargando...",
+			"oPaginate": {
+				"sFirst":    "Primero",
+				"sLast":     "Último",
+				"sNext":     "Siguiente",
+				"sPrevious": "Anterior"
+			},
+			"oAria": {
+				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+			}
+		},
+	});
+	
 	$('#btnRegister').click(function(){
 		var form = $('#spaceshipForm');
 		var name = form.find("input[name=nameShip]").val();
