@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-03-2018 a las 16:23:48
+-- Tiempo de generación: 20-03-2018 a las 16:48:55
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.6.24
 
@@ -41,7 +41,9 @@ CREATE TABLE `spaceship` (
 
 INSERT INTO `spaceship` (`id`, `name`, `id_type`, `x`, `y`, `z`) VALUES
 (10, 'Halcón milenario', 10, -532, 234, 432),
-(11, 'X-Wing Luke', 9, 34, 23, 1);
+(12, 'X-Wing Luke', 11, 32, 43, 12),
+(13, 'Darth Vader Ship 1', 1, 66, 55, 33),
+(14, 'Darth Vader chip 2', 1, 21, 13, 23);
 
 -- --------------------------------------------------------
 
@@ -51,36 +53,39 @@ INSERT INTO `spaceship` (`id`, `name`, `id_type`, `x`, `y`, `z`) VALUES
 
 CREATE TABLE `token` (
   `id` int(10) NOT NULL,
-  `user` varchar(255) NOT NULL
+  `user` varchar(255) NOT NULL,
+  `fc_acceso` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `token`
 --
 
-INSERT INTO `token` (`id`, `user`) VALUES
-(1, 'pepe'),
-(2, 'pepe'),
-(3, 'prueba'),
-(4, 'prueba'),
-(5, 'pepon'),
-(6, 'probando'),
-(7, 'pepis'),
-(8, 'pepe'),
-(9, 'pepo'),
-(10, 'pepo'),
-(11, 'pepe'),
-(12, 'prueba'),
-(13, 'pepo'),
-(14, 'pepe'),
-(15, 'prueba'),
-(16, 'pedro'),
-(17, 'pep'),
-(18, 'pepe'),
-(19, 'soldado'),
-(20, 'prueba'),
-(21, 'pedro'),
-(22, 'pepe');
+INSERT INTO `token` (`id`, `user`, `fc_acceso`) VALUES
+(1, 'pepe', '0000-00-00 00:00:00'),
+(2, 'pepe', '0000-00-00 00:00:00'),
+(3, 'prueba', '0000-00-00 00:00:00'),
+(4, 'prueba', '0000-00-00 00:00:00'),
+(5, 'pepon', '0000-00-00 00:00:00'),
+(6, 'probando', '0000-00-00 00:00:00'),
+(7, 'pepis', '0000-00-00 00:00:00'),
+(8, 'pepe', '0000-00-00 00:00:00'),
+(9, 'pepo', '0000-00-00 00:00:00'),
+(10, 'pepo', '0000-00-00 00:00:00'),
+(11, 'pepe', '0000-00-00 00:00:00'),
+(12, 'prueba', '0000-00-00 00:00:00'),
+(13, 'pepo', '0000-00-00 00:00:00'),
+(14, 'pepe', '0000-00-00 00:00:00'),
+(15, 'prueba', '0000-00-00 00:00:00'),
+(16, 'pedro', '0000-00-00 00:00:00'),
+(17, 'pep', '0000-00-00 00:00:00'),
+(18, 'pepe', '0000-00-00 00:00:00'),
+(19, 'soldado', '0000-00-00 00:00:00'),
+(20, 'prueba', '0000-00-00 00:00:00'),
+(21, 'pedro', '0000-00-00 00:00:00'),
+(22, 'pepe', '0000-00-00 00:00:00'),
+(23, 'pepito', '0000-00-00 00:00:00'),
+(24, 'pepe', '2018-03-20 16:44:36');
 
 -- --------------------------------------------------------
 
@@ -107,8 +112,8 @@ INSERT INTO `type` (`id`, `type`, `ds_type`) VALUES
 (6, 6, 'Lanzadera T-4a Lambda'),
 (7, 7, 'Aerodeslizador T-47'),
 (8, 8, 'TIE/LN'),
-(9, 9, 'T-65 Ala-X (X-Wing)'),
-(10, 10, 'Halcón Milenario');
+(10, 10, 'Halcón Milenario'),
+(11, 9, 'T-65 Ala-X (X-Wing)');
 
 --
 -- Índices para tablas volcadas
@@ -141,17 +146,17 @@ ALTER TABLE `type`
 -- AUTO_INCREMENT de la tabla `spaceship`
 --
 ALTER TABLE `spaceship`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `token`
 --
 ALTER TABLE `token`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT de la tabla `type`
 --
 ALTER TABLE `type`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- Restricciones para tablas volcadas
 --

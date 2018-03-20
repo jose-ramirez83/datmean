@@ -9,11 +9,12 @@ function getAuthorization($request,$response)
     // La contraseña es dagobah
     if ($password=="N2FkNTY4YzQ4MWY1ZDA2OTc0MWZjYjllYmY4MDUwMDc="){
         
-        $sql = "INSERT INTO token (user) VALUES (:user)";
+        $sql = "INSERT INTO token (user,fc_acceso) VALUES (:user,:time)";
         try {
             $db = getConnection();
             $stmt = $db->prepare($sql);
             $stmt->bindParam("user", $user['name']);
+            $stmt->bindParam("time", date('Y-m-d H:i:s'));
             $stmt->execute();
             $user['id'] = $db->lastInsertId();
             $user['error'] = 0;
