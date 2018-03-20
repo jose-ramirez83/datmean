@@ -128,7 +128,7 @@ $(function()
 		bootbox.confirm("¿Desea salir del sistema?", 
 			function(result){
 				if (result)
-					location.href="index.html"; 
+					location.href="."; 
 			}
 		);
 	});

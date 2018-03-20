@@ -48,18 +48,18 @@ if (isset($_COOKIE['userName'])){
                     echo $template->render(Array('naves'=>$resultData,'typeShips'=>$resultDataTypes));
                     break;
                 default:
-                    header("Location:index.html");
+                    header("Location:.");
                     break;
             }
             
         }
         else
-            header("Location:index.html");
+            header("Location:.");
         
     }
     else
-        header("Location:index.html");
+        header("Location:.");
 }
 else
-    header("Location:index.html");
+    header("Location:.");
 ?>
