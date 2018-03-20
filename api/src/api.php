@@ -81,28 +81,37 @@ function getShips($response) {
     }
 }
 
-function registerSpaceship($request) {
+function registerSpaceship($request,$response) {
     //$spaceship = json_decode($request->getBody());
     $spaceship = $request->getParsedBody();
-    //print_r($request->getParsedBody());die();
-    
-    $sql = "INSERT INTO spaceship (name, id_type, x, y, z) VALUES (:name, :id_type, :x, :y, :z)";
-    try {
-        $db = getConnection();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam("name", $spaceship["name"]);
-        $stmt->bindParam("id_type", $spaceship["type"]);
-        $stmt->bindParam("x", $spaceship["x"]);
-        $stmt->bindParam("y", $spaceship["y"]);
-        $stmt->bindParam("z", $spaceship["z"]);
-        $stmt->execute();
-        $spaceship["id"] = $db->lastInsertId();
-        $spaceship["error"] = 0;
-        $db = null;
-        echo json_encode($spaceship);
-    } catch(PDOException $e) {
-        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    if ($spaceship["name"]=='' || $spaceship["type"]=='' || $spaceship["x"]== '' || $spaceship["y"] == '' || $spaceship["z"] == ''){
+        $unauthorized = $response->withStatus(204)->write('{"error":{"text":No Content}}');
+        return $unauthorized;
     }
+    else{
+        //print_r($request->getParsedBody());die();
+        
+        $sql = "INSERT INTO spaceship (name, id_type, x, y, z) VALUES (:name, :id_type, :x, :y, :z)";
+        try {
+            $db = getConnection();
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam("name", $spaceship["name"]);
+            $stmt->bindParam("id_type", $spaceship["type"]);
+            $stmt->bindParam("x", $spaceship["x"]);
+            $stmt->bindParam("y", $spaceship["y"]);
+            $stmt->bindParam("z", $spaceship["z"]);
+            $stmt->execute();
+            $spaceship["id"] = $db->lastInsertId();
+            $spaceship["error"] = 0;
+            $db = null;
+            //echo json_encode($spaceship);
+            $created = $response->withStatus(201)->write('{"error":"0"}');
+            return $created;
+        } catch(PDOException $e) {
+            echo '{"error":{"text":'. $e->getMessage() .'}}';
+        }
+    }
+   
 }
 
 function searchShip($request) {
@@ -117,12 +126,9 @@ function searchShip($request) {
         $stmt = $db->prepare($sql);
         $params = array("%$searchText%");
         $stmt->execute($params);
-        $data = $stmt->fetch(PDO::FETCH_OBJ);
+        $data = $stmt->fetchAll(PDO::FETCH_OBJ);
         $count=$stmt->rowCount();
-        if ($count>0){
-            $data->error = 0;
-        }
-        else{
+        if ($count==0){
             $data = new stdclass();
             $data->error = 1;
         }

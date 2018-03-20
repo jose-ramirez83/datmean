@@ -1,5 +1,4 @@
 <?php
-
 // Inclusión de TWIG
 require_once './vendor/autoload.php';
 
@@ -11,7 +10,7 @@ spl_autoload_register(function ($nombre_clase) {
 // Definición del directorio de los templates
 $templateDir=dirname(__FILE__).'/templates/';
 
-$accion = $_REQUEST['accion'];
+$accion = isset($_REQUEST['accion'])?$_REQUEST['accion']:"";
 
 if (isset($_COOKIE['userName'])){
     $cookie = $_COOKIE['userName'];
@@ -40,7 +39,7 @@ if (isset($_COOKIE['userName'])){
                     $result = $curlApi->getData("http://localhost/api2/api/public/api/v1/rebelShips");
                     $resultData = json_decode($result);
                     
-                    // Llamada a la API para cargar la flota rebelde
+                    // Llamada a la API para cargar los tipos de naves espaciales
                     $resultTypes = $curlApi->getData("http://localhost/api2/api/public/api/v1/typeShips");
                     
                     $resultDataTypes = json_decode($resultTypes);
