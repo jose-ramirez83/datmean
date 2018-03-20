@@ -6,6 +6,7 @@ function getAuthorization($request,$response)
     
     $password = base64_encode(md5($user['pass']));
     
+    // La contraseña es dagobah
     if ($password=="N2FkNTY4YzQ4MWY1ZDA2OTc0MWZjYjllYmY4MDUwMDc="){
         
         $sql = "INSERT INTO token (user) VALUES (:user)";
@@ -54,12 +55,11 @@ function accesPlataform($request)
 }
 
 function getTypeShip($response) {
-    $sql = "SELECT * FROM type";
+    $sql = "SELECT id,type,ds_type FROM type";
     try {
         $stmt = getConnection()->query($sql);
         $data = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        $data->error=0;
         
         return json_encode($data,JSON_UNESCAPED_UNICODE);
     } catch(PDOException $e) {
@@ -68,12 +68,12 @@ function getTypeShip($response) {
 }
 
 function getShips($response) {
-    $sql = "SELECT * FROM ships";
+    $sql = "SELECT t.ds_type,sp.name,sp.id_type,sp.x,sp.y,sp.z FROM spaceship sp 
+        INNER JOIN type t ON sp.id_type=t.id";
     try {
         $stmt = getConnection()->query($sql);
         $data = $stmt->fetchAll(PDO::FETCH_OBJ);
         $db = null;
-        $data->error=0;
         
         return json_encode($data,JSON_UNESCAPED_UNICODE);
     } catch(PDOException $e) {
@@ -82,22 +82,52 @@ function getShips($response) {
 }
 
 function registerSpaceship($request) {
-    $spaceship = json_decode($request->getBody());
+    //$spaceship = json_decode($request->getBody());
+    $spaceship = $request->getParsedBody();
+    //print_r($request->getParsedBody());die();
     
     $sql = "INSERT INTO spaceship (name, id_type, x, y, z) VALUES (:name, :id_type, :x, :y, :z)";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
-        $stmt->bindParam("name", $spaceship->name);
-        $stmt->bindParam("id_type", $spaceship->type);
-        $stmt->bindParam("x", $spaceship->x);
-        $stmt->bindParam("y", $spaceship->y);
-        $stmt->bindParam("z", $spaceship->z);
+        $stmt->bindParam("name", $spaceship["name"]);
+        $stmt->bindParam("id_type", $spaceship["type"]);
+        $stmt->bindParam("x", $spaceship["x"]);
+        $stmt->bindParam("y", $spaceship["y"]);
+        $stmt->bindParam("z", $spaceship["z"]);
         $stmt->execute();
-        $spaceship->id = $db->lastInsertId();
-        $spaceship->error = 0;
+        $spaceship["id"] = $db->lastInsertId();
+        $spaceship["error"] = 0;
         $db = null;
         echo json_encode($spaceship);
+    } catch(PDOException $e) {
+        echo '{"error":{"text":'. $e->getMessage() .'}}';
+    }
+}
+
+function searchShip($request) {
+    $searchText = $request->getAttribute('search');
+    //$spaceship = json_decode($request->getBody());
+    //$spaceship = $request->getParsedBody();
+    
+    $sql = "SELECT sp.id,sp.name,sp.id_type,sp.x,sp.y,sp.z 
+            FROM spaceship sp WHERE sp.name LIKE ?";
+    try {
+        $db = getConnection();
+        $stmt = $db->prepare($sql);
+        $params = array("%$searchText%");
+        $stmt->execute($params);
+        $data = $stmt->fetch(PDO::FETCH_OBJ);
+        $count=$stmt->rowCount();
+        if ($count>0){
+            $data->error = 0;
+        }
+        else{
+            $data = new stdclass();
+            $data->error = 1;
+        }
+        $db = null;
+        echo json_encode($data);
     } catch(PDOException $e) {
         echo '{"error":{"text":'. $e->getMessage() .'}}';
     }
