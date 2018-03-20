@@ -1,4 +1,5 @@
 <?php
+
 // Inclusión de TWIG
 require_once './vendor/autoload.php';
 
