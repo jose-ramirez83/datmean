@@ -30,7 +30,7 @@ require __DIR__ . '/../src/dependencies.php';
 // Register middleware
 require __DIR__ . '/../src/middleware.php';
 
-// Operaciones API
+// Configuración base de datos
 require __DIR__ . '/../src/db.php';
 
 // Register routes

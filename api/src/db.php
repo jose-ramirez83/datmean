@@ -1,4 +1,9 @@
 <?php
+/**
+ * Función de conexión a la base de datos
+ * 
+ * @return PDO
+ */
 function getConnection() {
     $dbhost="127.0.0.1";
     $dbuser="root";

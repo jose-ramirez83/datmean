@@ -1,6 +1,8 @@
 $(function() 
 {
-	
+	/*
+	 * Hacemos DataTable a la tabla para que se añadan funcionalidades automáticas de filtro, ordenación y agrupación.
+	 */
 	$('.table').DataTable(
 	{
 	    language:{
@@ -29,6 +31,11 @@ $(function()
 		},
 	});
 	
+	/*
+	 * Hace una llamada a la API para registrar una nave espacial.
+	 * Realiza las comprobaciones si no tenemos todos los campos rellenados.
+	 * 
+	 */
 	$('#btnRegister').click(function(){
 		var form = $('#spaceshipForm');
 		var name = form.find("input[name=nameShip]").val();
@@ -63,6 +70,9 @@ $(function()
 		}
 	});
 	
+	/*
+	 * Hace una llamada a la API para buscar las coordenadas de una nave espacial concreta, o varias si coincide en el patrón de búsqueda
+	 */
 	$('#btnSearch').click(function(){
 		var form = $('#spaceshipForm');
 		var search = $('input[name=search]').val();
@@ -106,7 +116,9 @@ $(function()
 		}
 	});
 	
-	
+	/*
+	 * Solo permite que se introduzcan número y/o el signo negativo en las coordenadas
+	 */
 	$('input[name=x],input[name=y],input[name=z]').keydown(function(e){
 		if (e.keyCode!=46&&e.keyCode!=8&&e.keyCode!=37&&e.keyCode!=39&&e.keyCode!=9&&e.keyCode!=109)
 		{
@@ -116,6 +128,9 @@ $(function()
 		}
 	});
 	
+	/*
+	 * Resetea los valores del formulario
+	 */
 	$('#btnNew').click(function(){
 		var form = $('#spaceshipForm');
 		form.find("input[name=nameShip]").val('');
@@ -124,11 +139,14 @@ $(function()
 		form.find("input[name=z]").val('');
 	});
 	
+	/*
+	 * Para salir del sistema
+	 */
 	$('#btnExit').click(function(){
 		bootbox.confirm("¿Desea salir del sistema?", 
 			function(result){
 				if (result)
-					location.href="."; 
+					location.href="spaceships_manager.php?accion=exit"; 
 			}
 		);
 	});

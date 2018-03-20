@@ -33,7 +33,7 @@ if (isset($_COOKIE['userName'])){
                     $loader = new Twig_Loader_Filesystem($templateDir);
                     $twig = new Twig_Environment($loader);
                     
-                    //echo $twig->render('index', array('name' => 'Fabien'));
+                    // Cargamos la plantilla del gestor de naves espaciales
                     $template = $twig->load('spacecrafts.html');
                     
                     // Llamada a la API para cargar la flota rebelde
@@ -47,6 +47,9 @@ if (isset($_COOKIE['userName'])){
                     
                     echo $template->render(Array('naves'=>$resultData,'typeShips'=>$resultDataTypes));
                     break;
+                case "exit":
+                    setcookie("userName", '', time()-1000);
+                    header("Location:.");
                 default:
                     header("Location:.");
                     break;
