@@ -1,4 +1,5 @@
 <?php
+define("API","http://localhost/api2/api/public/api/v1/");
 
 // Inclusión de TWIG
 require_once './vendor/autoload.php';
@@ -22,7 +23,7 @@ if (isset($_COOKIE['userName'])){
         // Api de pruebas en local
         $curlApi= new curlApi();
         
-        $result = $curlApi->sendDataPOST("http://localhost/datmean/api/public/api/v1/access",$fields);
+        $result = $curlApi->sendDataPOST(API."access",$fields);
         
         $resultData = json_decode($result);
         
@@ -37,11 +38,11 @@ if (isset($_COOKIE['userName'])){
                     $template = $twig->load('spacecrafts.html');
                     
                     // Llamada a la API para cargar la flota rebelde
-                    $result = $curlApi->getData("http://localhost/datmean/api/public/api/v1/rebelShips");
+                    $result = $curlApi->getData(API."rebelShips");
                     $resultData = json_decode($result);
                     
                     // Llamada a la API para cargar los tipos de naves espaciales
-                    $resultTypes = $curlApi->getData("http://localhost/datmean/api/public/api/v1/typeShips");
+                    $resultTypes = $curlApi->getData(API."typeShips");
                     
                     $resultDataTypes = json_decode($resultTypes);
                     
